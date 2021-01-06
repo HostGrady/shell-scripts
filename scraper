@@ -1,0 +1,42 @@
+#!/bin/sh
+# Simple general purpose scraper, written in POSIX shell using basic tools
+# Licensed under the Unlicense, please see LICENSE for more information
+# Depends on wget 
+HELP="Usage scraper [url] [-hvs]
+
+Simple general purpose scraper using basic commandline tools
+
+-h                              Displays help info
+-v                              Displays version info
+-s [location]                   Changes save location (default ~/Pictures)"
+VERSION="v1.0"
+save=~/Pictures/
+while getopts ":hvs:" opt; do 
+	case "$opt" in
+		"h") 
+			echo "$HELP" # displays help information from above
+			exit 1;;	
+		"v")
+			echo "$VERSION" # displays version information from above
+			exit 1;;
+		"s")
+			save=$OPTARG;;
+		*)
+			echo "$HELP"
+			exit 1;;
+	esac
+done
+
+for i in "$@"; do
+	case $i in 	
+		"http"*|*".com"|*".org"|*"www"*)
+				url=$i;;
+		*);;
+	esac
+done
+
+[ -z $url ] && echo "$HELP" && exit 1
+[ -z $save ] && echo "$HELP" && exit 1
+echo "$url $save"
+
+wget -H -nd -r -l 1 -P $save -A png,jpg,jpeg -e robots=off $url

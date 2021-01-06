@@ -1,0 +1,40 @@
+#!/bin/sh
+# This script is licensed under the unlicense, please view the LICENSE file or go to https://unlicense.org/ for more information 
+# Basic POSIX shell script which showcases arguments
+HELP="Usage: arguments [-hvabcd]
+
+This is a posix shell script to help study and understand commandline arguments
+
+-h			help command
+-v			version info
+-a \"string\"		first parameter argument (required)
+-b			b argument
+-c			c argument
+-d \"string\"		second parameter argument (not required)"
+VERSION="1.0"
+# getopts syntax is simple, single letter arguments only, : = argument with a parameter
+while getopts ":vha:bcd:" opt; do
+	case "${opt}" in
+		"h")
+			echo "$HELP" # help information from above
+			exit 1;;
+		"v")
+			echo "$VERSION" # version information from above
+			exit 1;;
+		"a")
+			parameterA="$OPTARG";; # required parameter
+		"b")
+			echo "argument b";;
+		"c")
+			echo "argument c";;
+		"d")
+			parameterD="$OPTARG";; # required parameter
+		*)
+			echo "$HELP"
+			exit 1;;
+	esac
+done
+
+[ -z "$parameterA" ] && exit 1
+echo "$parameterA"
+[ -z "$parameterD" ] || echo "$parameterD" && exit
