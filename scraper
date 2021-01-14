@@ -2,16 +2,18 @@
 # Simple general purpose scraper, written in POSIX shell using basic tools
 # Licensed under the Unlicense, please see LICENSE for more information
 # Depends on wget 
-HELP="Usage: scraper [url] [-hvs]
+HELP="Usage: scraper [url] [-hvsf]
 
 Simple general purpose scraper using basic commandline tools
 
 -h                              Displays help info
 -v                              Displays version info
--s [location]                   Changes save location (default: ~/Pictures)"
+-s [location]                   Changes save location (default: ~/Pictures)
+-f [foo,bar]                    Changes file formats (default: a lot of them)"
 VERSION="v1.0.1"
-save=~/Pictures/
-while getopts ":hvs:" opt; do 
+save="$HOME/Pictures/"
+formats="mp4,m4v,webm,png,jpg,jpeg,gif"
+while getopts ":hvs:f:" opt; do 
 	case "$opt" in
 		"h") 
 			echo "$HELP" # displays help information from above
@@ -21,6 +23,8 @@ while getopts ":hvs:" opt; do
 			exit 1;;
 		"s")
 			save=$OPTARG;;
+		"f")
+			formats=$OPTARG;;
 		*)
 			echo "$HELP"
 			exit 1;;
@@ -38,4 +42,4 @@ done
 [ -z $url ] && echo "$HELP" && exit 1
 [ -z $save ] && echo "$HELP" && exit 1
 
-wget -H -nd -r -l 1 -P $save -A png,jpg,jpeg -e robots=off $url
+wget -H -nd -r -l 1 -P $save -A $formats -e robots=off $url
