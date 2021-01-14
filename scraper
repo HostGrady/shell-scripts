@@ -10,7 +10,7 @@ Simple general purpose scraper using basic commandline tools
 -v                              Displays version info
 -s [location]                   Changes save location (default: ~/Downloads)
 -f [foo,bar]                    Changes file formats (default: a lot of them)"
-VERSION="v1.0.1"
+VERSION="v1.1"
 save="$HOME/Downloads/"
 formats="mp4,m4v,webm,png,jpg,jpeg,gif"
 while getopts ":hvs:f:" opt; do 
