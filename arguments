@@ -14,7 +14,7 @@ This is a posix shell script to help study and understand commandline arguments
 VERSION="1.0"
 # getopts syntax is simple, single letter arguments only, : = argument with a parameter
 while getopts ":vha:bcd:" opt; do
-	case "${opt}" in
+	case "$opt" in
 		"h")
 			echo "$HELP" # help information from above
 			exit 1;;
