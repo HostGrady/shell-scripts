@@ -1,0 +1,10 @@
+#!/bin/bash
+# Tom Scott's fizzbuzz solution implemented in bash (NOT POSIX) with an until loop 
+# This script is licensed under the unlicense, please view the LICENSE file or go to https://unlicense.org/ for more information 
+x=0; until [ $x = 100 ]; do
+	x=$((x+1))
+	str=""
+	[ $((x%3)) = 0 ] && str+="fizz"
+	[ $((x%5)) = 0 ] && str+="buzz"
+	[ -z $str ] && echo $x || echo $str
+done
