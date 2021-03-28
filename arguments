@@ -7,34 +7,27 @@ This is a posix shell script to help study and understand commandline arguments
 
 -h			help command
 -v			version info
--a \"string\"		first parameter argument (required)
+-a \"string\"		first parameter argument (required to exit with 0)
 -b			b argument
 -c			c argument
--d \"string\"		second parameter argument (not required)"
-VERSION="1.0"
+-d \"string\"		second parameter argument"
+VERSION="1.1"
 # getopts syntax is simple, single letter arguments only, : = argument with a parameter
 while getopts ":vha:bcd:" opt; do
 	case "$opt" in
-		"h")
-			echo "$HELP" # help information from above
-			exit 1;;
-		"v")
-			echo "$VERSION" # version information from above
-			exit 1;;
-		"a")
-			parameterA="$OPTARG";; # required parameter
-		"b")
-			echo "argument b";;
-		"c")
-			echo "argument c";;
-		"d")
-			parameterD="$OPTARG";; # required parameter
-		*)
-			echo "$HELP"
-			exit 1;;
+		"h") echo "$HELP" # help information from above
+			 exit 1;;
+		"v") echo "$VERSION" # version information from above
+			 exit 1;;
+		"a") parameterA="$OPTARG";; # required parameter
+		"b") echo "argument b";;
+		"c") echo "argument c";;
+		"d") parameterD="$OPTARG";; # required parameter
+		*)   echo "$HELP"
+			 exit 1;;
 	esac
 done
 
 [ -z "$parameterA" ] && exit 1
-echo "$parameterA"
-[ -z "$parameterD" ] || echo "$parameterD" && exit
+echo "arg a: $parameterA"
+[ -z "$parameterD" ] || echo "arg d: $parameterD" && exit

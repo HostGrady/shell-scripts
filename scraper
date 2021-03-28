@@ -10,31 +10,25 @@ Simple general purpose scraper using basic commandline tools
 -v                              Displays version info
 -s [location]                   Changes save location (default: ~/Downloads)
 -f [foo,bar]                    Changes file formats (default: a lot of them)"
-VERSION="v1.1"
+VERSION="v1.2"
 save="$HOME/Downloads/"
 formats="mp4,m4v,webm,png,jpg,jpeg,gif"
 while getopts ":hvs:f:" opt; do 
 	case "$opt" in
-		"h") 
-			echo "$HELP" # displays help information from above
-			exit 1;;	
-		"v")
-			echo "$VERSION" # displays version information from above
-			exit 1;;
-		"s")
-			save=$OPTARG;;
-		"f")
-			formats=$OPTARG;;
-		*)
-			echo "$HELP"
-			exit 1;;
+		"h") echo "$HELP" 
+			 exit 1;;	
+		"v") echo "$VERSION" 
+			 exit 1;;
+		"s") save=$OPTARG;;
+		"f") formats=$OPTARG;;
+		*)   echo "$HELP"
+			 exit 1;;
 	esac
 done
 
 for i in "$@"; do
 	case $i in 	
-		"http"*|*".com"*|*".org"*|*"www"*)
-				url=$i;;
+		"http"*|*".com"*|*".org"*|*"www"*) url=$i;;
 		*);;
 	esac
 done
