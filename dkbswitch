@@ -1,0 +1,31 @@
+#!/bin/sh
+# This script is licensed under the Unlicense, see LICENSE for full details
+# A simple keyboard switcher for X11 using dmenu
+# Make a file called ~/.config/kblayouts, the syntax is the exact same as setxkbmap
+HELP="Usage: dkbswitch [-hvcdf]
+
+Simple keyboard switcher using dmenu
+
+-h                  display help and exits
+-v                  display version and exits
+-c [location]       change layouts location 
+-d [command]        change dmenu command
+-f [layout]         change fallback layout"
+VERSION="1.0"
+
+while getopts ":vhc:d:f:" opt; do
+    case "$opt" in
+	"h") echo "$HELP"; exit 1;;
+	"v") echo "$VERSION"; exit 1;;
+	"c") kbfile="$OPTARG";;
+	"d") dmenucommand="$OPTARG";;
+	"f") default="$OPTARG";;
+	*) echo "$HELP"; exit 1;;
+    esac
+done
+
+[ -z "$default" ] && default="us"
+[ -z "$dmenucommand" ] && dmenucommand="dmenu"
+[ -z "$kbfile" ] && kbfile="$HOME/.config/kblayouts"
+kb=$($dmenucommand < "$kbfile")
+setxkbmap $kb || setxkbmap $default
