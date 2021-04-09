@@ -1,0 +1,12 @@
+#!/bin/sh
+# This script is licensed under the Unlicense, see LICENSE for full details
+# TUI tool to find and edit config files
+# Depends on fzf and vim
+edit="$(find "$HOME"/.config | fzf)"
+
+while [ -d "$edit" ]; do
+    edit="$(find "$edit" | fzf)"
+done
+[ -f "$edit" ] && vim "$edit" && exit 0
+
+exit 1

@@ -1,0 +1,12 @@
+#!/bin/sh
+# This script is licensed under the Unlicense, see LICENSE for full details 
+# GUI tool to find and edit config files
+# Depends on dmenu, vim and xterm
+edit="$(find "$HOME"/.config | dmenu -l 20)"
+
+while [ -d "$edit" ]; do
+    edit="$(find "$edit" | dmenu -l 20)"
+done
+[ -f "$edit" ] && xterm -e vim "$edit" && exit 0
+
+exit 1
