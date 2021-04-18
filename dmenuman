@@ -1,0 +1,5 @@
+#!/bin/sh
+# This script is licensed under the Unlicense, see LICENSE for full details
+# GUI tool to find and read man pages
+# Depends on dmenu and xterm
+xterm -e man "$(apropos . | dmenu -l 20 | cut -d" " -f1)"
